@@ -1,0 +1,120 @@
+title
+{
+background-color:#ff4c68;
+}
+.Product-container{
+  width: 100%;
+  padding: 10px 50px;
+}
+h1
+{
+  font-size:50px;
+  font-family: cursive;
+  font-style:italic;
+  color:white;
+}
+p {
+  line-height: 2;
+  text-align: center;
+}
+.navbar-brand
+{
+  font-size:50px;
+  font-family:cursive;
+  font-weight:bold;
+}
+.navbar{
+  padding:10px 50px;
+}
+.nav-item
+{
+  padding-right:50px;
+}
+a:hover {
+  color: #EAF6F6;
+}
+.top-container{
+  background-color: #E4F9F5;
+  position: relative;
+  padding: 100px;
+  margin: 100px 0 100px 0;
+  width: 100%;
+}
+.second-container{
+  max-width: 100%;
+  height: auto;
+}
+
+.goToSignIn{
+    width: 50%;
+    margin: 0px auto;
+}
+.alreadyAccount{
+    display: none;
+
+}
+.wrongInfo{
+    display: none;
+
+}
+.ad{
+    margin: 15% auto 2% auto;
+}
+.but{
+    margin: 1% auto 1% auto;
+}
+#footer {
+    position:absolute;
+    bottom:0;
+    width:100%;
+    height:60px;   /* Height of the footer */
+    background:#6cf;
+ }
+ .grid{
+     margin: 2% 0% 0% 0%;
+ }
+.cardstyling{
+    margin: 0% 0% 2% 0%;
+}
+.validate{
+    max-height: 300px;
+    max-width: 300px;
+    overflow: scroll;
+}
+.activeUser{
+    display: none;
+}
+#postad{
+    display: none;
+}
+#greetUser{
+    display: none;
+}
+#search{
+
+    height: 70%;
+}
+#searchBtn{
+    display: none;
+}
+.userProfile{
+    display: none;
+}
+.userAds{
+    display: none;
+}
+.category{
+    color: gray;
+}
+.favourite{
+    display: none;
+}
+.text-messages{
+    color: gray;
+}
+.container{
+  width: 100%
+}
+.grid py-5 bg-dark{
+  width: 100%
+}

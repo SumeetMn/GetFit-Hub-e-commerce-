@@ -103,10 +103,10 @@
 
         axios.post('http://localhost:5000/users/login', data)
         .then(function (response) {
-          console.log(response)
           if(response.data.success) {
             localStorage.setItem('name', response.data.payload.name)
             localStorage.setItem('email', response.data.payload.email)
+            window.location.href = "http://localhost:3001";
           } else {
             if(response.data.message === "Incorrect password") {
               document.getElementById('nopass').removeAttribute('hidden')

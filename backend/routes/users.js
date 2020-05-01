@@ -58,15 +58,14 @@ router.post('/login', (req, res) => {
                             name: user.name,
                             email: user.email
                         }
-                        res.status(200).json({ payload: payload, success: true });
+                        res.json({ payload: payload, success: true });
                     } else {
-                        console.log(err)
                         res.json({ message: "Incorrect password", success: false });
                     }
             }
         })
         .catch(err => {
-            res.json({ message: err, success: false });
+            res.sendStatus(400).json({ message: err, success: false });
         })
 })
 

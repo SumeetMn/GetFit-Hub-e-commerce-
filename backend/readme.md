@@ -1,4 +1,4 @@
-# Backend for Folks Analytica
+# Backend, Getfit hub
 
 ## Install dependencies
 

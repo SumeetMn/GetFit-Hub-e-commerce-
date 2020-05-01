@@ -6,7 +6,7 @@ Run the command
     
     npm install
 
-### Dependenicies
+### Dependenicies that will be installed
 
     body-parser
     cors

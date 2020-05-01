@@ -7,6 +7,7 @@
     <title>SIGN UP</title>
     <link rel="stylesheet" href="style.css" type="text/css" />
     <link rel="icon" href="" type="icon" />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
 </head>
 <body>
@@ -47,27 +48,31 @@
 
   <div class="container">
     <h1 class="suh text-center text-dark">SIGN UP</h1>
-    <form id="signUpForm" action="insert.php" method="post">
+    <form onsubmit="sendData(event)" id="signUpForm">
       <div class="form-group">
         <label for="userName"><b>User Name</b></label>
-        <input name="userName" type="text" class="form-control" id="userName" aria-describedby="emailHelp" placeholder="Enter User Name">
+        <input name="name" type="text" class="form-control" id="name" aria-describedby="emailHelp" placeholder="Enter User Name" required>
       </div>
       <div class="form-group">
         <label for="email"><b>Email address</b></label>
-        <input name="email" type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
+        <input name="email" type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email" required>
       </div>
       <div class="form-group">
         <label for="password"><b>Password</b></label>
-        <input name="password" type="password" class="form-control" id="password" placeholder="Password">
+        <input name="password" type="password" class="form-control" id="password" placeholder="Password" required>
       </div>
-      <button type="button" class="btn btn-primary" onclick="signUp()">Sign Up</button>
+      <button type="submit" class="btn btn-primary" onclick="signUp()">Sign Up</button>
     </form>
     <div class="goToSignIn">
       <small><a href="signin.html">Already Have An Account?</a></small><br>
       <!-- <button type="button" class="btn btn-info" onclick="goToSignIn()">Sign In</button> -->
     </div><br>
-    <div class="alert alert-danger alreadyAccount" id="alreadyAccount" role="alert" ></div>
-    <div class="alert alert-success alreadyAccount" id="accountRegistered" role="alert" ></div>
+    <div class="alert alert-danger alreadyAccount" id="danger" role="alert" hidden>
+      Account linked to this email already exists
+    </div>
+    <div class="alert alert-success alreadyAccount" id="success" role="alert" hidden>
+      Account created
+    </div>
 
 
   </div>
@@ -86,20 +91,32 @@
       </div>
       <!-- /.container -->
     </footer>
+    <script type="text/javascript">
 
-<script src="https://www.gstatic.com/firebasejs/5.2.0/firebase.js"></script>
-<script>
-  // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyCzPEhkUwgTiJu2pS69ao7YdnHu-0oVn3Q",
-    authDomain: "olx-pakistan-8800e.firebaseapp.com",
-    databaseURL: "https://olx-pakistan-8800e.firebaseio.com",
-    projectId: "olx-pakistan-8800e",
-    storageBucket: "gs://olx-pakistan-8800e.appspot.com",
-    messagingSenderId: "441355874801"
-  };
-  firebase.initializeApp(config);
-</script>
+      function sendData(event) {
+          event.preventDefault()
+
+          document.getElementById('success').setAttribute('hidden', true)
+          document.getElementById('danger').setAttribute('hidden', true)
+
+          data = {
+              name: document.getElementById('name').value,
+              email: document.getElementById('email').value,
+              password: document.getElementById('password').value
+          }   
+
+          axios.post('http://localhost:5000/users/register', data)
+          .then(function (response) {
+            if(response.data.success)
+              document.getElementById('success').removeAttribute('hidden')
+            else
+              document.getElementById('danger').removeAttribute('hidden')
+          })
+          .catch(function (error) {
+              document.getElementById('danger').removeAttribute('hidden')
+          });
+      }
+  </script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>

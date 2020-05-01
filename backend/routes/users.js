@@ -1,6 +1,5 @@
 const express = require("express")
 const cors = require('cors')
-const bcrypt = require("bcrypt")
 
 const Users = require("../models/users")
 
@@ -10,10 +9,10 @@ router.use(cors())
 router.post('/register', (req, res) => {
     
     const today = new Date()
-    const userData = {
+    let userData = {
         name: req.body.name,
         email: req.body.email,
-        passowrd: req.body.passowrd,
+        password: req.body.password,
         created: today
     }
 
@@ -23,30 +22,27 @@ router.post('/register', (req, res) => {
         }
     })
         .then(user => {
-            if (!user) {
-                bcrypt.hash(req.body.password, 10, (err, hash) => {
-                    userData.password = hash
+            if (user === null || !user) {
                     Users.create(userData)
-                        .then(user => {
-                            res.json({ status: user.email + 'registered' })
+                        .then(newUser => {
+                            return res.json({ status: userData.email + 'registered', success: true })
                         })
                         .catch(err => {
-                            res.sendStatus(400).send('error: ' + err)
+                            res.json({error: err, success: false})
                         })
-                })
             } else {
-                res.json({ error: "User already exists" })
+                res.sendStatus(400).json({ error: "User already exists", success: false })
             }
         })
         .catch(err => {
-            res.send('error: ' + err)
+            res.sendStatus(400).json({error: err, success: false})
         })
 })
 
 router.post('/login', (req, res) => {
     
     const email = req.body.email
-    const password = req.body.passowrd
+    const password = req.body.password
 
     Users.findOne({
         where: {
@@ -57,21 +53,16 @@ router.post('/login', (req, res) => {
             if (!user) {
                 res.json({ message: "User not found", success: false });
             } else {
-                bcrypt.compare(password, user.password)
-                    .then(isMatch => {
-                        if(isMatch) {
-                            const payload = {
-                                name: user.name,
-                                email: user.email
-                            }
-                            res.status(200).json({ payload: payload, success: true });
-                        } else {
-                            res.json({ message: "Incorrect passowrd", success: false });
+                    if(password === user.password) {
+                        const payload = {
+                            name: user.name,
+                            email: user.email
                         }
-                    })
-                    .catch(err => {
-                        res.json({ message: "Incorrect passowrd", success: false });
-                    })
+                        res.status(200).json({ payload: payload, success: true });
+                    } else {
+                        console.log(err)
+                        res.json({ message: "Incorrect password", success: false });
+                    }
             }
         })
         .catch(err => {

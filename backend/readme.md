@@ -8,7 +8,6 @@ Run the command
 
 ### Dependenicies
 
-    bcrypt
     body-parser
     cors
     express
